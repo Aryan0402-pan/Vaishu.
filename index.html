@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Valentine's Day!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <title>For My Vaishuu... 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@500&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
@@ -18,7 +18,7 @@
             font-family: 'Dancing Script', cursive;
             background: linear-gradient(135deg, var(--deep-red), #FFB6C1);
             color: white;
-            overflow: hidden; /* Prevents scrollbars during button chase */
+            overflow: hidden;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -47,17 +47,12 @@
             z-index: 10;
         }
 
-        h2 {
-            font-size: clamp(1.5rem, 5vw, 2.5rem);
-            margin-bottom: 2rem;
-        }
-
         .buttons {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 1.5rem;
-            min-height: 150px; /* Space for the growing button */
+            min-height: 180px;
         }
 
         button {
@@ -81,24 +76,9 @@
             background: white;
             color: var(--deep-red);
             position: relative;
-            z-index: 99;
         }
 
-        /* Floating Hearts Background */
-        .heart-particle {
-            position: absolute;
-            bottom: -10%;
-            font-size: 1.5rem;
-            opacity: 0.6;
-            animation: float Up 8s linear infinite;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
-        }
-
-        /* Modal Styling */
+        /* Modal / Letter Styling */
         .modal {
             display: none;
             position: fixed;
@@ -106,7 +86,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.85);
             justify-content: center;
             align-items: center;
             z-index: 1000;
@@ -115,68 +95,69 @@
         .modal-content {
             background: #fffafa;
             color: #333;
-            padding: 3rem;
+            padding: 2rem;
             border-radius: 20px;
-            max-width: 400px;
+            width: 85%;
+            max-width: 450px;
+            max-height: 80vh;
+            overflow-y: auto;
             text-align: center;
-            position: relative;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             border: 4px double var(--primary-pink);
         }
 
-        .modal-content h3 {
-            color: var(--deep-red);
-            font-size: 2.5rem;
-            margin-top: 0;
+        .letter-text {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            white-space: pre-line; /* Keeps your spacing and line breaks */
+            text-align: center;
+            color: #444;
         }
 
-        .modal-content p {
-            font-size: 1.4rem;
-            line-height: 1.4;
+        .heart-particle {
+            position: absolute;
+            bottom: -10%;
+            font-size: 1.5rem;
+            opacity: 0.6;
+            animation: floatUp 8s linear infinite;
         }
 
-        footer {
-            position: fixed;
-            bottom: 20px;
-            opacity: 0.7;
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <header>Happy Valentine's Day! 💖</header>
+    <header>For My Vaishuu... 🫶🏻</header>
 
     <div class="container">
-        <h2>Will you be my Valentine?</h2>
+        <h2 id="question">Will you be my Valentine? 👉🏻👈🏻</h2>
         <div class="buttons">
-            <button id="yes-btn">Yes</button>
-            <button id="no-btn">No</button>
+            <button id="yes-btn">Yes! 😍</button>
+            <button id="no-btn">No 🥺</button>
         </div>
     </div>
 
     <div id="love-modal" class="modal">
         <div class="modal-content">
-            <h3>To My Love...</h3>
-            <p id="love-letter"></p>
-            <button onclick="closeModal()" style="background: var(--primary-pink); color: white; margin-top: 1rem;">Close</button>
+            <div class="letter-text" id="full-message"></div>
+            <button onclick="closeModal()" style="background: var(--deep-red); color: white; margin-top: 20px; font-size: 1.2rem;">Close 💖</button>
         </div>
     </div>
-
-    <footer>Made with love 💕</footer>
 
     <script>
         const noBtn = document.getElementById('no-btn');
         const yesBtn = document.getElementById('yes-btn');
         const modal = document.getElementById('love-modal');
-        const loveLetter = document.getElementById('love-letter');
+        const messageBox = document.getElementById('full-message');
         
         let yesScale = 1;
         let noClicks = 0;
 
-        const letters = [
-            "My dearest, every moment with you feels like a dream. Your smile lights up my world! 💕",
-            "You're the person I want to annoy for the rest of my life. Happy Valentine's Day! 🌹",
-            My baby doll ......😚❣️
+        const myMessage = `My baby doll ......😚❣️
 My shonaa........🥰❤️
 My sweetuuuuuuuuuuuuuu....😘🥴
 My baby 😍 🌹
@@ -196,10 +177,9 @@ AND I WANNA ASK YOU SOMTHING 👉🏻👈🏻🫣 😚 ❣️.........
 
 Will you be my valentine????
 If yes send me your pic making heart from you hands my love ....😁🤭
-And you can gave me a kiss too......😋😋
-        ];
+And you can gave me a kiss too......😋😋.`;
 
-        // 1. Create Background Hearts
+        // Create Background Hearts
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart-particle');
@@ -209,47 +189,45 @@ And you can gave me a kiss too......😋😋
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 8000);
         }
-        setInterval(createHeart, 500);
+        setInterval(createHeart, 400);
 
-        // 2. Logic to move "No" and grow "Yes"
+        // Move "No" and grow "Yes"
         const moveNoButton = () => {
-            // Calculate random position while keeping it within viewport
-            const padding = 50;
-            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+            const maxX = window.innerWidth - noBtn.offsetWidth - 50;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 50;
             
-            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
-            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+            const randomX = Math.max(20, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(20, Math.floor(Math.random() * maxY));
 
             noBtn.style.position = 'fixed';
             noBtn.style.left = `${randomX}px`;
             noBtn.style.top = `${randomY}px`;
 
-            // Make the 'Yes' button bigger!
-            yesScale += 0.15;
+            yesScale += 0.2;
             yesBtn.style.transform = `scale(${yesScale})`;
             
-            // Optional: Change text of the No button to be cheeky
-            const phrases = ["Are you sure?", "Really?", "Think again!", "Pwease?", "Don't do this!"];
+            const phrases = ["Are you sure?", "Socho mat!", "Vaishuu click Yes!", "Don't do this 😭", "Galat baat!"];
             noBtn.innerText = phrases[noClicks % phrases.length];
             noClicks++;
         };
-
-        noBtn.addEventListener('mouseover', moveNoButton);
-        noBtn.addEventListener('click', moveNoButton); // For mobile users who tap
-
-        // 3. 'Yes' Button Success
+        document.addEventListener('DOMContentLoaded', () => {
+        noBtn.addEventListener('mouseover', moveNoButton);});
+        document.addEventListener('DOMContentLoaded', () => {
+        noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveNoButton(); });
+        });
+        // 'Yes' Button Success
+        document.addEventListener('DOMContentLoaded', () => {
         yesBtn.addEventListener('click', () => {
             confetti({
-                particleCount: 200,
-                spread: 100,
+                particleCount: 250,
+                spread: 120,
                 origin: { y: 0.6 },
                 colors: ['#FF69B4', '#DC143C', '#FFFFFF']
             });
 
-            const randomLetter = letters[Math.floor(Math.random() * letters.length)];
-            loveLetter.innerText = randomLetter;
+            messageBox.innerText = myMessage;
             modal.style.display = 'flex';
+        });
         });
 
         function closeModal() {
