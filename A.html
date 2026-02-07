@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary-pink: #FF69B4;
+            --deep-red: #DC143C;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Dancing Script', cursive;
+            background: linear-gradient(135deg, var(--deep-red), #FFB6C1);
+            color: white;
+            overflow: hidden; /* Prevents scrollbars during button chase */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header {
+            text-align: center;
+            font-size: clamp(2rem, 8vw, 4rem);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 10;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            margin-bottom: 2rem;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            min-height: 150px; /* Space for the growing button */
+        }
+
+        button {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease-out;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #yes-btn {
+            background: linear-gradient(45deg, var(--primary-pink), var(--deep-red));
+            color: white;
+            z-index: 100;
+        }
+
+        #no-btn {
+            background: white;
+            color: var(--deep-red);
+            position: relative;
+            z-index: 99;
+        }
+
+        /* Floating Hearts Background */
+        .heart-particle {
+            position: absolute;
+            bottom: -10%;
+            font-size: 1.5rem;
+            opacity: 0.6;
+            animation: float Up 8s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #fffafa;
+            color: #333;
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 4px double var(--primary-pink);
+        }
+
+        .modal-content h3 {
+            color: var(--deep-red);
+            font-size: 2.5rem;
+            margin-top: 0;
+        }
+
+        .modal-content p {
+            font-size: 1.4rem;
+            line-height: 1.4;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 20px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+    <header>Happy Valentine's Day! 💖</header>
+
+    <div class="container">
+        <h2>Will you be my Valentine?</h2>
+        <div class="buttons">
+            <button id="yes-btn">Yes</button>
+            <button id="no-btn">No</button>
+        </div>
+    </div>
+
+    <div id="love-modal" class="modal">
+        <div class="modal-content">
+            <h3>To My Love...</h3>
+            <p id="love-letter"></p>
+            <button onclick="closeModal()" style="background: var(--primary-pink); color: white; margin-top: 1rem;">Close</button>
+        </div>
+    </div>
+
+    <footer>Made with love 💕</footer>
+
+    <script>
+        const noBtn = document.getElementById('no-btn');
+        const yesBtn = document.getElementById('yes-btn');
+        const modal = document.getElementById('love-modal');
+        const loveLetter = document.getElementById('love-letter');
+        
+        let yesScale = 1;
+        let noClicks = 0;
+
+        const letters = [
+            "My dearest, every moment with you feels like a dream. Your smile lights up my world! 💕",
+            "You're the person I want to annoy for the rest of my life. Happy Valentine's Day! 🌹",
+            My baby doll ......😚❣️
+My shonaa........🥰❤️
+My sweetuuuuuuuuuuuuuu....😘🥴
+My baby 😍 🌹
+And
+My laado....... 😋 😚 ✨❤️
+Vaishuu....🫶🏻🫰🏻♥️
+
+YOU ARE THE SWEETEST AND THE MOST LOVELY GIRL I EVER MET MY LAADO ....😋 😚 
+
+I REALLY LOVE YOU THE MOST SAHI ME .....🥹💫
+
+TUMHE BHALE HI LAGTA HAI KI ME BS BOLNE WALA HU PR ME TUMHARE LIYE HAR EFFORTS KRNE KE LIYE TAYAAR HU JISSE TUMHE KHUSHI MILE🤗🤭✨💝.
+
+
+AND I WANNA ASK YOU SOMTHING 👉🏻👈🏻🫣 😚 ❣️.........
+
+
+Will you be my valentine????
+If yes send me your pic making heart from you hands my love ....😁🤭
+And you can gave me a kiss too......😋😋
+        ];
+
+        // 1. Create Background Hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerText = ['❤️', '💖', '💕', '💗', '🌸'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (Math.random() * 3 + 5) + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 8000);
+        }
+        setInterval(createHeart, 500);
+
+        // 2. Logic to move "No" and grow "Yes"
+        const moveNoButton = () => {
+            // Calculate random position while keeping it within viewport
+            const padding = 50;
+            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+            
+            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+
+            // Make the 'Yes' button bigger!
+            yesScale += 0.15;
+            yesBtn.style.transform = `scale(${yesScale})`;
+            
+            // Optional: Change text of the No button to be cheeky
+            const phrases = ["Are you sure?", "Really?", "Think again!", "Pwease?", "Don't do this!"];
+            noBtn.innerText = phrases[noClicks % phrases.length];
+            noClicks++;
+        };
+
+        noBtn.addEventListener('mouseover', moveNoButton);
+        noBtn.addEventListener('click', moveNoButton); // For mobile users who tap
+
+        // 3. 'Yes' Button Success
+        yesBtn.addEventListener('click', () => {
+            confetti({
+                particleCount: 200,
+                spread: 100,
+                origin: { y: 0.6 },
+                colors: ['#FF69B4', '#DC143C', '#FFFFFF']
+            });
+
+            const randomLetter = letters[Math.floor(Math.random() * letters.length)];
+            loveLetter.innerText = randomLetter;
+            modal.style.display = 'flex';
+        });
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
